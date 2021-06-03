@@ -35,7 +35,7 @@ public class OriginalAddressController extends AbstractController {
 
     @Override
     public OriginalAddress findById(Integer id) {
-        return originalAddressRepository.findById(id).get();
+        return originalAddressRepository.findById(id).orElse(null);
     }
 
     @Override
