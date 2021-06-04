@@ -1,16 +1,13 @@
 package com.anhkhoido.shortener.urlshortener.controller;
 
 import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
-import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressRepository;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlRepository;
+import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/urlshortener/originalAddresses")
@@ -18,13 +15,6 @@ public class OriginalAddressController extends AbstractController {
 
     @Autowired
     private OriginalAddressService originalAddressService;
-
-    private ShortUrlRepository shortUrlRepository;
-
-    @Autowired
-    public OriginalAddressController(ShortUrlRepository shortUrlRepository) {
-        this.shortUrlRepository = shortUrlRepository;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,14 +40,6 @@ public class OriginalAddressController extends AbstractController {
     @Override
     public void deleteAll() {
         originalAddressService.deleteAll();
-    }
-
-    private ShortUrl generateShortUrl(OriginalAddress originalAddress) {
-        String alteredUrl = ShortUrlMaker.generateTruncatedUrl(originalAddress.getAddress());
-        return ShortUrl.builder()
-                .truncatedUrl(alteredUrl)
-                .originalAddress(originalAddress)
-                .build();
     }
 
 }
