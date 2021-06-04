@@ -2,6 +2,7 @@ package com.anhkhoido.shortener.urlshortener.controller;
 
 import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressRepository;
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
 import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlRepository;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
@@ -15,45 +16,40 @@ import java.util.List;
 @RequestMapping(path = "/api/urlshortener/originalAddresses")
 public class OriginalAddressController extends AbstractController {
 
-    private OriginalAddressRepository originalAddressRepository;
+    @Autowired
+    private OriginalAddressService originalAddressService;
+
     private ShortUrlRepository shortUrlRepository;
 
     @Autowired
-    public OriginalAddressController(OriginalAddressRepository originalAddressRepository, ShortUrlRepository shortUrlRepository) {
-        this.originalAddressRepository = originalAddressRepository;
+    public OriginalAddressController(ShortUrlRepository shortUrlRepository) {
         this.shortUrlRepository = shortUrlRepository;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody OriginalAddress originalAddress) {
-        originalAddressRepository.save(originalAddress);
-        List<OriginalAddress> originalAddresses = (List<OriginalAddress>) originalAddressRepository.findAll();
-        OriginalAddress mostRecent = originalAddresses.get(originalAddresses.size() - 1);
-        ShortUrl shortUrl = generateShortUrl(mostRecent);
-        shortUrlRepository.save(shortUrl);
+        originalAddressService.create(originalAddress);
     }
 
     @Override
     public OriginalAddress findById(Integer id) {
-        return originalAddressRepository.findById(id).orElse(null);
+        return originalAddressService.findById(id).orElse(null);
     }
 
     @Override
     public Iterable<OriginalAddress> findAll() {
-        return originalAddressRepository.findAll();
+        return originalAddressService.findAll();
     }
 
     @Override
     public void deleteById(Integer id) {
-        shortUrlRepository.deleteByOriginalAddress_Id(id);
-        originalAddressRepository.deleteById(id);
+        originalAddressService.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        shortUrlRepository.deleteAll();
-        originalAddressRepository.deleteAll();
+        originalAddressService.deleteAll();
     }
 
     private ShortUrl generateShortUrl(OriginalAddress originalAddress) {
