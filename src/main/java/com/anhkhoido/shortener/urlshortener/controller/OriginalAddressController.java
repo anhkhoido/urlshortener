@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/urlshortener/originalAddresses")
 public class OriginalAddressController extends AbstractController {
@@ -25,21 +27,20 @@ public class OriginalAddressController extends AbstractController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody OriginalAddress originalAddress) {
-        long originalCount = originalAddressRepository.count();
         originalAddressRepository.save(originalAddress);
-        if (originalAddressRepository.count() > originalCount) {
-            ShortUrl shortUrl = generateShortUrl(originalAddress);
-            shortUrlRepository.save(shortUrl);
-        }
+        List<OriginalAddress> originalAddresses = (List<OriginalAddress>) originalAddressRepository.findAll();
+        OriginalAddress mostRecent = originalAddresses.get(originalAddresses.size() - 1);
+        ShortUrl shortUrl = generateShortUrl(mostRecent);
+        shortUrlRepository.save(shortUrl);
     }
 
     @Override
     public OriginalAddress findById(Integer id) {
-        return originalAddressRepository.findById(id).get();
+        return originalAddressRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Iterable findAll() {
+    public Iterable<OriginalAddress> findAll() {
         return originalAddressRepository.findAll();
     }
 
