@@ -1,6 +1,6 @@
 package com.anhkhoido.shortener.urlshortener.service;
 
-import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressServiceImpl;
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ public class OriginalAddressServiceImplTest {
     private final String SEARCH_ENGINE = "https://duckduckgo.com";
 
     @Autowired
-    private OriginalAddressServiceImpl originalAddressService;
+    private OriginalAddressService originalAddressService;
 
     @Test
     @DisplayName("Test should pass if there are no duplicate URLs")
