@@ -1,10 +1,7 @@
 package com.anhkhoido.shortener.urlshortener.controller;
 
-import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
-import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
