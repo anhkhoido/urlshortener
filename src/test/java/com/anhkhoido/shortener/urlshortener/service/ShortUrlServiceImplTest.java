@@ -44,16 +44,6 @@ public class ShortUrlServiceImplTest {
 
     }
 
-    @Test
-    @DisplayName("Test should pass if service can delete ShortUrl by fk_original_address")
-    public void test_deleteShortUrlByFkOriginalAddress() {
-        OriginalAddress originalAddress = originalAddressService.save(getOriginalAddress(SEARCH_ENGINE));
-        shortUrlService.save(getShortUrl(originalAddress));
-        int idOriginalAddress = originalAddress.getId();
-        shortUrlService.deleteByOriginalAddress_Id(idOriginalAddress);
-        Assertions.assertTrue(shortUrlService.count() == 0);
-    }
-
     private OriginalAddress getOriginalAddress(String address) {
         return OriginalAddress.builder()
                 .address(address)

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class OriginalAddressServiceImpl implements OriginalAddressRepository {
+public class OriginalAddressServiceImpl implements OriginalAddressService {
 
     private OriginalAddressRepository originalAddressRepository;
 
@@ -17,23 +17,23 @@ public class OriginalAddressServiceImpl implements OriginalAddressRepository {
     }
 
     @Override
+    public void create(OriginalAddress originalAddress) {
+        originalAddressRepository.save(originalAddress);
+    }
+
+    @Override
     public OriginalAddress save(OriginalAddress originalAddress) {
         return originalAddressRepository.save(originalAddress);
     }
 
     @Override
-    public <S extends OriginalAddress> Iterable<S> saveAll(Iterable<S> iterable) {
-        return originalAddressRepository.saveAll(iterable);
+    public Iterable<OriginalAddress> saveAll(Iterable<OriginalAddress> originalAddresses) {
+        return originalAddressRepository.saveAll(originalAddresses);
     }
 
     @Override
-    public Optional<OriginalAddress> findById(Integer integer) {
-        return originalAddressRepository.findById(integer);
-    }
-
-    @Override
-    public boolean existsById(Integer integer) {
-        return originalAddressRepository.existsById(integer);
+    public Optional<OriginalAddress> findById(Integer id) {
+        return originalAddressRepository.findById(id);
     }
 
     @Override
@@ -42,32 +42,27 @@ public class OriginalAddressServiceImpl implements OriginalAddressRepository {
     }
 
     @Override
-    public Iterable<OriginalAddress> findAllById(Iterable<Integer> iterable) {
-        return originalAddressRepository.findAllById(iterable);
+    public Iterable<OriginalAddress> findAllById(Iterable<Integer> ids) {
+        return originalAddressRepository.findAllById(ids);
     }
 
     @Override
-    public long count() {
-        return originalAddressRepository.count();
+    public boolean existsById(Integer id) {
+        return originalAddressRepository.existsById(id);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        originalAddressRepository.deleteById(integer);
-    }
-
-    @Override
-    public void delete(OriginalAddress originalAddress) {
-        originalAddressRepository.delete(originalAddress);
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends OriginalAddress> iterable) {
-        originalAddressRepository.deleteAll(iterable);
+    public void deleteById(Integer id) {
+        originalAddressRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
         originalAddressRepository.deleteAll();
+    }
+
+    @Override
+    public long count() {
+        return originalAddressRepository.count();
     }
 }

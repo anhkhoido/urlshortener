@@ -2,13 +2,12 @@ package com.anhkhoido.shortener.urlshortener.dao.ShortUrl;
 
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class ShortUrlServiceImpl implements ShortUrlRepository {
+public class ShortUrlServiceImpl implements ShortUrlService {
 
     private ShortUrlRepository shortUrlRepository;
 
@@ -17,24 +16,25 @@ public class ShortUrlServiceImpl implements ShortUrlRepository {
         this.shortUrlRepository = shortUrlRepository;
     }
 
+
+    @Override
+    public void create(ShortUrl shortUrl) {
+        shortUrlRepository.save(shortUrl);
+    }
+
     @Override
     public ShortUrl save(ShortUrl shortUrl) {
         return shortUrlRepository.save(shortUrl);
     }
 
     @Override
-    public <S extends ShortUrl> Iterable<S> saveAll(Iterable<S> iterable) {
-        return shortUrlRepository.saveAll(iterable);
+    public Iterable<ShortUrl> saveAll(Iterable<ShortUrl> shortUrls) {
+        return shortUrlRepository.saveAll(shortUrls);
     }
 
     @Override
-    public Optional<ShortUrl> findById(Integer integer) {
-        return shortUrlRepository.findById(integer);
-    }
-
-    @Override
-    public boolean existsById(Integer integer) {
-        return shortUrlRepository.existsById(integer);
+    public Optional<ShortUrl> findById(Integer id) {
+        return shortUrlRepository.findById(id);
     }
 
     @Override
@@ -43,28 +43,18 @@ public class ShortUrlServiceImpl implements ShortUrlRepository {
     }
 
     @Override
-    public Iterable<ShortUrl> findAllById(Iterable<Integer> iterable) {
-        return shortUrlRepository.findAllById(iterable);
+    public Iterable<ShortUrl> findAllById(Iterable<Integer> ids) {
+        return shortUrlRepository.findAllById(ids);
     }
 
     @Override
-    public long count() {
-        return shortUrlRepository.count();
+    public boolean existsById(Integer id) {
+        return shortUrlRepository.existsById(id);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        shortUrlRepository.deleteById(integer);
-    }
-
-    @Override
-    public void delete(ShortUrl shortUrl) {
-        shortUrlRepository.delete(shortUrl);
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends ShortUrl> iterable) {
-        shortUrlRepository.deleteAll(iterable);
+    public void deleteById(Integer id) {
+        shortUrlRepository.deleteById(id);
     }
 
     @Override
@@ -73,7 +63,7 @@ public class ShortUrlServiceImpl implements ShortUrlRepository {
     }
 
     @Override
-    public void deleteByOriginalAddress_Id(@Param("id") Integer id) {
-        shortUrlRepository.deleteByOriginalAddress_Id(id);
+    public long count() {
+        return shortUrlRepository.count();
     }
 }
