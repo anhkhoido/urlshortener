@@ -1,8 +1,8 @@
 package com.anhkhoido.shortener.urlshortener.controller;
 
-import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlRepository;
+import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,37 +10,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/urlshortener/shortUrls")
 public class ShortUrlController extends AbstractController {
 
-    private ShortUrlRepository shortUrlRepository;
-
-    public ShortUrlController(ShortUrlRepository shortUrlRepository) {
-        this.shortUrlRepository = shortUrlRepository;
-    }
+    @Autowired
+    private ShortUrlService shortUrlService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody ShortUrl shortUrl) {
-        String truncatedUrl = ShortUrlMaker.generateTruncatedUrl(shortUrl.getTruncatedUrl());
-        shortUrl.setTruncatedUrl(truncatedUrl);
-        shortUrlRepository.save(shortUrl);
+        shortUrlService.save(shortUrl);
     }
 
     @Override
     public ShortUrl findById(Integer id) {
-        return shortUrlRepository.findById(id).orElse(null);
+        return shortUrlService.findById(id).orElse(null);
     }
 
     @Override
     public Iterable<ShortUrl> findAll() {
-        return shortUrlRepository.findAll();
+        return shortUrlService.findAll();
     }
 
     @Override
     public void deleteById(Integer id) {
-        shortUrlRepository.deleteById(id);
+        shortUrlService.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        shortUrlRepository.deleteAll();
+        shortUrlService.deleteAll();
     }
 }

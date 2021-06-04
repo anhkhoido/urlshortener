@@ -1,8 +1,8 @@
 package com.anhkhoido.shortener.urlshortener.service;
 
 import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
-import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressServiceImpl;
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlServiceImpl;
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
+import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
 import org.junit.jupiter.api.Assertions;
@@ -19,10 +19,10 @@ public class ShortUrlServiceImplTest {
     private final String SEARCH_ENGINE = "https://duckduckgo.com";
 
     @Autowired
-    private OriginalAddressServiceImpl originalAddressService;
+    private OriginalAddressService originalAddressService;
 
     @Autowired
-    private ShortUrlServiceImpl shortUrlService;
+    private ShortUrlService shortUrlService;
 
     @Test
     @DisplayName("Test should pass if original URL and its truncated version are different")

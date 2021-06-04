@@ -20,7 +20,7 @@ public class ShortUrl {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "truncatedUrl", unique = true)
+    @Column(name = "truncatedUrl", unique = true, length = 20)
     private String truncatedUrl;
 
     @OneToOne

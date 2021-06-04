@@ -21,6 +21,6 @@ public class OriginalAddress implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "address", unique = true)
+    @Column(name = "address", unique = true, length = 255)
     private String address;
 }
