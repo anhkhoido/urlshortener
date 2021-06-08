@@ -27,9 +27,6 @@ public class OriginalAddressControllerTest {
     @MockBean
     private OriginalAddressService originalAddressService;
 
-    @Autowired
-    private OriginalAddressServiceImpl originalAddressServiceImpl;
-
     @Test
     @DisplayName("Test should pass if the controller can a list")
     public void test_findAllOriginalAddresses() throws Exception {
