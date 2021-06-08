@@ -4,6 +4,7 @@ import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,4 +66,5 @@ public class OriginalAddressServiceImpl implements OriginalAddressService {
     public long count() {
         return originalAddressRepository.count();
     }
+
 }

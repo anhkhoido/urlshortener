@@ -2,6 +2,8 @@ package com.anhkhoido.shortener.urlshortener.dao.OriginalAddress;
 
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface OriginalAddressService {

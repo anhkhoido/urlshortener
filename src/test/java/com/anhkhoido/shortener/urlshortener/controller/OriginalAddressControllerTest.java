@@ -1,7 +1,7 @@
 package com.anhkhoido.shortener.urlshortener.controller;
 
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressServiceImpl;
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlServiceImpl;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,10 +25,10 @@ public class OriginalAddressControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private OriginalAddressServiceImpl originalAddressService;
+    private OriginalAddressService originalAddressService;
 
-    @MockBean
-    private ShortUrlServiceImpl shortUrlService;
+    @Autowired
+    private OriginalAddressServiceImpl originalAddressServiceImpl;
 
     @Test
     @DisplayName("Test should pass if the controller can a list")

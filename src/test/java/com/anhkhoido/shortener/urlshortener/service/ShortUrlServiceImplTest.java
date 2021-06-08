@@ -2,7 +2,9 @@ package com.anhkhoido.shortener.urlshortener.service;
 
 import com.anhkhoido.shortener.urlshortener.businessRule.ShortUrlMaker;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressServiceImpl;
 import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
+import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlServiceImpl;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import com.anhkhoido.shortener.urlshortener.model.ShortUrl;
 import org.junit.jupiter.api.Assertions;
@@ -12,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
-@Transactional
+import java.util.Optional;
+
 public class ShortUrlServiceImplTest {
 
     private final String SEARCH_ENGINE = "https://duckduckgo.com";
@@ -27,9 +29,9 @@ public class ShortUrlServiceImplTest {
     @Test
     @DisplayName("Test should pass if original URL and its truncated version are different")
     public void test_shortUrlMaker() {
-        OriginalAddress originalAddress = originalAddressService.save(getOriginalAddress(SEARCH_ENGINE));
-        ShortUrl shortUrl = shortUrlService.save(getShortUrl(originalAddress));
-        Assertions.assertNotSame(originalAddress.getAddress(), shortUrl.getTruncatedUrl());
+        Optional<OriginalAddress> originalAddress = Optional.ofNullable(getOriginalAddress(SEARCH_ENGINE));
+        ShortUrl shortUrl = shortUrlService.save(getShortUrl(originalAddress.get()));
+        Assertions.assertNotSame(originalAddress.get().getAddress(), shortUrl.getTruncatedUrl());
     }
 
     @Test

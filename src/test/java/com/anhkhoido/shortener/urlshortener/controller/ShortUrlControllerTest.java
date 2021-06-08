@@ -1,6 +1,6 @@
 package com.anhkhoido.shortener.urlshortener.controller;
 
-import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlServiceImpl;
+import com.anhkhoido.shortener.urlshortener.dao.ShortUrl.ShortUrlService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,7 +20,7 @@ public class ShortUrlControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ShortUrlServiceImpl shortUrlService;
+    private ShortUrlService shortUrlService;
 
     @Test
     @DisplayName("Test should pass if controller finds short url by ID.")

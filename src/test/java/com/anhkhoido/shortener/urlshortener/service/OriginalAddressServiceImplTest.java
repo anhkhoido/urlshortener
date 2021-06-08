@@ -1,23 +1,26 @@
 package com.anhkhoido.shortener.urlshortener.service;
 
+import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressRepository;
 import com.anhkhoido.shortener.urlshortener.dao.OriginalAddress.OriginalAddressService;
 import com.anhkhoido.shortener.urlshortener.model.OriginalAddress;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
-@SpringBootTest
-@Transactional
 public class OriginalAddressServiceImplTest {
     private final String SEARCH_ENGINE = "https://duckduckgo.com";
 
-    @Autowired
+    @InjectMocks
     private OriginalAddressService originalAddressService;
+
+    @Mock
+    private OriginalAddressRepository originalAddressRepository;
 
     @Test
     @DisplayName("Test should pass if there are no duplicate URLs")
@@ -30,13 +33,9 @@ public class OriginalAddressServiceImplTest {
 
     @Test
     @DisplayName("Test should pass if service deletes all URLs")
-    public void test_deleteAllOriginalUrls() {
-        OriginalAddress originalAddress = getOriginalAddress(SEARCH_ENGINE);
-        OriginalAddress originalAddress002 = getOriginalAddress("https://time.is");
-        originalAddressService.saveAll(Arrays.asList(originalAddress, originalAddress002));
-        Assertions.assertTrue(originalAddressService.count() == 2);
-        originalAddressService.deleteAll();
-        Assertions.assertTrue(originalAddressService.count() == 0);
+    public void test_deleteOriginalUrl() {
+        originalAddressService.deleteById(1);
+        Mockito.verify(originalAddressRepository).deleteById(1);
     }
 
     private OriginalAddress getOriginalAddress(String address) {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/urlshortener/shortUrls")
-public class ShortUrlController extends AbstractController {
+public class ShortUrlController extends AbstractController<ShortUrl> {
 
     @Autowired
     private ShortUrlService shortUrlService;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/urlshortener/originalAddresses")
-public class OriginalAddressController extends AbstractController {
+public class OriginalAddressController extends AbstractController<OriginalAddress> {
 
     @Autowired
     private OriginalAddressService originalAddressService;
