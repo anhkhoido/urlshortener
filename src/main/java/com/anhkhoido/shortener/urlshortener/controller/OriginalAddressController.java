@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/urlshortener/originalAddresses")
 public class OriginalAddressController extends AbstractController<OriginalAddress> {
 
+    private final OriginalAddressService originalAddressService;
+
     @Autowired
-    private OriginalAddressService originalAddressService;
+    public OriginalAddressController(OriginalAddressService originalAddressService) {
+        this.originalAddressService = originalAddressService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
